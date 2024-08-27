@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Redirect</title>
+    <script>
+        // Function to generate a random token
+        function generateToken() {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+
+        // Function to set the token in localStorage with expiration time
+        function setTokenWithExpiry(token, ttl) {
+            const now = new Date();
+            const item = {
+                value: token,
+                expiry: now.getTime() + ttl
+            };
+            localStorage.setItem('qrToken', JSON.stringify(item));
+        }
+
+        // Generate the token and store it in localStorage for 10 minutes (10*60*1000 ms)
+        const token = generateToken();
+        setTokenWithExpiry(token, 10 * 60 * 1000); // 10 minutes
+
+        window.location.href = 'index.html';
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
